@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "build:functions": "netlify-lambda build functions/api",
     "start": "nuxt start",
-    "generate": "nuxt generate",
+    "generate": "yarn build:functions && nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },
@@ -14,6 +15,7 @@
     "@nuxt/content": "^1.8.1",
     "@nuxtjs/axios": "^5.12.2",
     "core-js": "^3.6.5",
+    "netlify-lambda": "^2.0.1",
     "nuxt": "^2.14.5"
   },
   "devDependencies": {
