@@ -5,11 +5,12 @@
       <!-- <h1>{{ xmlText }}</h1> -->
       <ul>
         <li
-          v-for="item in xmlTitleItems"
-          :key="item"
+          v-for="item in noteItems"
+          :key="item.link"
           style="text-align: left;"
         >
-          {{ item }}
+          <h2>{{ item.title }}</h2>
+          <img style="width: 300px" :src="item.img" />
         </li>
       </ul>
     </v-flex>
@@ -42,9 +43,15 @@ export default {
       xmlObj = json
     })
 
-    const xmlTitleItems = xmlObj.rss.channel.item.map(v => v.title)
+    const noteItems = xmlObj ? xmlObj.rss.channel.item.map((v) => {
+      return {
+        title: v.title,
+        img: v['media:thumbnail'],
+        link: v.link
+      }
+    }) : []
 
-    return { timeText, xmlText, xmlTitleItems }
+    return { timeText, xmlText, noteItems }
   }
 }
 </script>
