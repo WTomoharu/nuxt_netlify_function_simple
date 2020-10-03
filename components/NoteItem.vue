@@ -4,11 +4,11 @@
       class="text-over"
       style="text-align: left;"
     >
-      {{ title }}
+      {{ data.title }}
     </h2>
     <div style="text-align: left; white-space: nowrap">
       <img
-        :src="img"
+        :src="data.img"
         style="width: 300px; display: inline-block;"
       >
       <div
@@ -16,7 +16,7 @@
       >
         <p
           style="text-align: left;"
-          v-html="description"
+          v-html="data.description"
         />
       </div>
     </div>
@@ -34,17 +34,9 @@
 <script>
 export default {
   props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    img: {
-      type: String,
-      default: ''
-    },
-    description: {
-      type: String,
-      default: ''
+    data: {
+      type: Object,
+      default: () => {}
     }
   }
 }
