@@ -1,8 +1,8 @@
 <template>
   <v-layout>
     <v-flex class="text-center">
-      <h1>{{ timeText }}</h1>
-      <!-- <h1>{{ xmlText }}</h1> -->
+      <h1>mountedTtimeText：{{ mountedTtimeText }}</h1>
+      <h1>asyncTtimeText：{{ asyncTtimeText }}</h1>
       <NoteItem
         v-for="item in noteItems"
         :key="item.link"
@@ -23,8 +23,8 @@ export default {
     NoteItem
   },
   async asyncData (context) {
-    const timeUrl = 'https://friendly-yalow-4a2e2c.netlify.app/.netlify/functions/hello'
-    const timeText = await axios.get(timeUrl)
+    const asyncTimeUrl = 'https://friendly-yalow-4a2e2c.netlify.app/.netlify/functions/hello'
+    const asyncTtimeText = await axios.get(asyncTimeUrl)
       .then((res) => { return res.data })
       .catch(() => { return '' })
 
@@ -52,7 +52,18 @@ export default {
       }
     }).slice(5) : []
 
-    return { timeText, xmlText, noteItems }
+    return { asyncTtimeText, noteItems }
+  },
+  data () {
+    return {
+      mountedTtimeText: 'default'
+    }
+  },
+  async mounted () {
+    const mountedTimeUrl = 'https://friendly-yalow-4a2e2c.netlify.app/.netlify/functions/hello'
+    this.mountedTtimeText = await axios.get(mountedTimeUrl)
+      .then((res) => { return res.data })
+      .catch(() => { return '' })
   }
 }
 </script>
